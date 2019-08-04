@@ -1,0 +1,569 @@
+<div>
+    <div>
+        <button mat-icon-button class="close-btn" (click)="closeDilaog()">
+            <mat-icon class="close-icon-width">highlight_off</mat-icon>
+        </button>
+    </div>
+
+
+
+
+    <div *ngIf="sendBitcoin">
+        <div class="wrapper page-inner content-fixed">
+            <div class="conatiner w-100">
+                <div class="text-center">
+                    <img src="../../../../assets/images/currency-icons/cryptocurrency-icon.png" alt="stellar-image" class="otp-img">
+                </div>
+                <form [formGroup]="sendBTCForm">
+                    <mat-form-field class="wd-100 mt-10">
+                        <input type="text" matInput formControlName="receiverAddress" placeholder="Enter receiver address">
+                        <mat-error *ngIf="bitCoinControl.receiverAddress.touched && bitCoinControl.receiverAddress.errors">
+                            <mat-error *ngIf="bitCoinControl.receiverAddress.errors.required">Receiver address is required!
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input type="text" matInput formControlName="bitcoin" placeholder="BTC" [(ngModel)]="newValue" (keyup)="convertBTC($event.target.value)">
+                                <span matSuffix class="curren-back">BTC</span>
+                                <mat-error *ngIf="bitCoinControl.bitcoin.touched && bitCoinControl.bitcoin.errors">
+                                    <mat-error *ngIf="bitCoinControl.bitcoin.errors.required">Amount is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="bitCoinControl.bitcoin.errors.pattern">Please enter valid amount!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <span matPrefix class="eur-back">Euro &nbsp;</span>
+                                <input type="text" formControlName="btcToEuro" [(ngModel)]="btcToEuro" matInput placeholder="Euro" readonly value="{{btcToEuro | number:'1.1-2' }}">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="wd-100" hidden="hiddenField">
+                            <input matInput formControlName="btcWithFee" [(ngModel)]="btcWithFee">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Transaction Fee: {{btcFee}}</span>
+                    </div>
+                    <div class="col-md-12 text-center mt-5 mb-3">
+                        <button type="button" mat-raised-button [ngClass]="{'grad-css': sendBTCForm.valid}" [disabled]="!sendBTCForm.valid || disableButton" (click)="sendBTC()">Send</button>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Current Balance:</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>{{btcBalance}} BTC</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>€ {{userBTCInEuro}}</span>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div *ngIf="sendEthereum">
+        <div class="wrapper page-inner content-fixed">
+            <div class="conatiner w-100">
+                <div class="text-center">
+                    <img src="../../../../assets/images/currency-icons/Ethereum-ETH-icon.png" alt="stellar-image" class="otp-img">
+                </div>
+                <form [formGroup]="sendETHForm">
+                    <mat-form-field class="wd-100 mt-10">
+                        <input type="text" matInput formControlName="receiverAddress" placeholder="Enter receiver address">
+                        <mat-error *ngIf="ethereumControl.receiverAddress.touched && ethereumControl.receiverAddress.errors">
+                            <mat-error *ngIf="ethereumControl.receiverAddress.errors.required">Receiver address is required!
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input type="text" matInput formControlName="ethereum" placeholder="ETH" [(ngModel)]="newValue" (keyup)="convertETH($event.target.value)">
+                                <span matSuffix class="curren-back">ETH</span>
+                                <mat-error *ngIf="ethereumControl.ethereum.touched && ethereumControl.ethereum.errors">
+                                    <mat-error *ngIf="ethereumControl.ethereum.errors.required">Amount is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="ethereumControl.ethereum.errors.pattern">Please enter valid amount!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <span matPrefix class="eur-back">Euro &nbsp;</span>
+                                <input type="text" matInput formControlName="ethToEuro" [(ngModel)]="ethToEuro" placeholder="Euro" value="{{ethToEuro | number:'1.1-2'}}" readonly>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="wd-100" hidden="hiddenField">
+                            <input matInput formControlName="ethWithFee" [(ngModel)]="ethWithFee">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Transaction Fee: 0.125€</span>
+                    </div>
+                    <div class="col-md-12 text-center mt-5 mb-3">
+                        <button type="button" mat-raised-button [ngClass]="{'grad-css': sendETHForm.valid}" [disabled]="!sendETHForm.valid || disableButton" (click)="sendETH()">Send</button>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Current Balance:</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>{{ethBalance}} ETH</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>€ {{userETHInEuro}}</span>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <div *ngIf="sendTether">
+        <div class="wrapper page-inner content-fixed">
+            <div class="conatiner w-100">
+                <div class="text-center">
+                    <img src="../../../../assets/images/currency-icons/Tether-USDT-icon.png" alt="stellar-image" class="otp-img">
+                </div>
+                <form [formGroup]="sendUSDTForm">
+                    <mat-form-field class="wd-100 mt-10">
+                        <input type="text" matInput formControlName="receiverAddress" placeholder="Enter receiver address">
+                        <mat-error *ngIf="tetherControl.receiverAddress.touched && tetherControl.receiverAddress.errors">
+                            <mat-error *ngIf="tetherControl.receiverAddress.errors.required">Receiver address is required!
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input type="text" matInput formControlName="tether" placeholder="USDT" [(ngModel)]="newValue" (keyup)="convertUSDT($event.target.value)">
+                                <span matSuffix class="curren-back">USDT</span>
+                                <mat-error *ngIf="tetherControl.tether.touched && tetherControl.tether.errors">
+                                    <mat-error *ngIf="tetherControl.tether.errors.required">Amount is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="tetherControl.tether.errors.pattern">Please enter valid amount!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <span matPrefix class="eur-back">Euro &nbsp;</span>
+                                <input type="text" matInput formControlName="usdtToEuro" [(ngModel)]="usdtToEuro" placeholder="Euro" value="{{usdtToEuro | number:'1.1-2'}}" readonly>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="wd-100" hidden="hiddenField">
+                            <input matInput formControlName="usdtWithFee" [(ngModel)]="usdtWithFee">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Transaction Fee: {{usdtFee}}</span>
+                    </div>
+                    <div class="col-md-12 text-center mt-5 mb-3">
+                        <button type="button" mat-raised-button [ngClass]="{'grad-css': sendUSDTForm.valid}" [disabled]="!sendUSDTForm.valid || disableButton" (click)="sendUSDT()">Send</button>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Current Balance:</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>{{usdtBalance}} USDT</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>€ {{userTetherInEuro}}</span>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <div *ngIf="sendLitecoin">
+        <div class="wrapper page-inner content-fixed">
+            <div class="conatiner w-100">
+                <div class="text-center">
+                    <img src="../../../../assets/images/currency-icons/Litecoin-LTC-icon.png" alt="stellar-image" class="otp-img">
+                </div>
+                <form [formGroup]="sendLTCForm">
+                    <mat-form-field class="wd-100 mt-10">
+                        <input type="text" matInput formControlName="receiverAddress" placeholder="Enter receiver address">
+                        <mat-error *ngIf="litecoinControl.receiverAddress.touched && litecoinControl.receiverAddress.errors">
+                            <mat-error *ngIf="litecoinControl.receiverAddress.errors.required">Receiver address is required!
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input type="text" matInput formControlName="litecoin" placeholder="LTC" [(ngModel)]="newValue" (keyup)="convertLTC($event.target.value)">
+                                <span matSuffix class="curren-back">LTC</span>
+                                <mat-error *ngIf="litecoinControl.litecoin.touched && litecoinControl.litecoin.errors">
+                                    <mat-error *ngIf="litecoinControl.litecoin.errors.required">Amount is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="litecoinControl.litecoin.errors.pattern">Please enter valid amount!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <span matPrefix class="eur-back">Euro &nbsp;</span>
+                                <input type="text" matInput formControlName="ltcToEuro" [(ngModel)]="ltcToEuro" placeholder="Euro" value="{{ltcToEuro | number:'1.1-2'}}" readonly>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <mat-form-field class="wd-100" hidden="hiddenField">
+                            <input matInput formControlName="ltcWithFee" [(ngModel)]="ltcWithFee">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Transaction Fee: {{ltcFee}}</span>
+                    </div>
+                    <div class="col-md-12 text-center mt-5 mb-3">
+                        <button type="button" mat-raised-button [ngClass]="{'grad-css': sendLTCForm.valid}" [disabled]="!sendLTCForm.valid || disableButton" (click)="sendLTC()">Send</button>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Current Balance:</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>{{ltcBalance}} LTC</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>€ {{userLiteCoinInEuro}}</span>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div *ngIf="sendMonero">
+        <div class="wrapper page-inner content-fixed">
+            <div class="conatiner w-100">
+                <div class="text-center">
+                    <img src="../../../../assets/images/currency-icons/monero-symbol-on-white-1280.png" alt="stellar-image" class="otp-img">
+                </div>
+
+                <form [formGroup]="sendXMRForm">
+                    <mat-form-field class="wd-100 mt-10">
+                        <input type="text" matInput formControlName="receiverAddress" placeholder="Enter receiver address">
+                        <mat-error *ngIf="moneroControl.receiverAddress.touched && moneroControl.receiverAddress.errors">
+                            <mat-error *ngIf="moneroControl.receiverAddress.errors.required">Receiver address is required!
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input type="text" formControlName="monero" matInput placeholder="XMR" [(ngModel)]="newValue" (keyup)="convertXMR($event.target.value)">
+                                <span matSuffix class="curren-back">XMR</span>
+                                <mat-error *ngIf="moneroControl.monero.touched && moneroControl.monero.errors">
+                                    <mat-error *ngIf="moneroControl.monero.errors.required">Amount is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="moneroControl.monero.errors.pattern">Please enter valid amount!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <span matPrefix class="eur-back">Euro &nbsp;</span>
+                                <input type="text" matInput formControlName="xmrToEuro" [(ngModel)]="xmrToEuro" placeholder="Euro" value="{{xmrToEuro | number:'1.1-2'}}" readonly>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="wd-100" hidden="hiddenField">
+                            <input matInput formControlName="xmrWithFee" [(ngModel)]="xmrWithFee">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Transaction Fee: {{xmrFee}}</span>
+                    </div>
+                    <div class="col-md-12 text-center mt-5 mb-3">
+                        <button type="button" mat-raised-button [ngClass]="{'grad-css': sendXMRForm.valid}" [disabled]="!sendXMRForm.valid || disableButton" (click)="sendXMR()">Send</button>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Current Balance:</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span> {{xmrBalance}} XMR</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>€ {{userMoneroInEuro}}</span>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <div *ngIf="sendBitCash">
+        <div class="wrapper page-inner content-fixed">
+            <div class="conatiner w-100">
+                <div class="text-center">
+                    <img src="../../../../assets/images/currency-icons/Bitcoin-Cash-BCH-icon.png" alt="ripple-image" class="otp-img">
+                </div>
+                <form [formGroup]="sendBCHForm">
+                    <mat-form-field class="wd-100 mt-10">
+                        <input type="text" matInput formControlName="receiverAddress" placeholder="Enter receiver address">
+                        <mat-error *ngIf="bitCashControl.receiverAddress.touched && bitCashControl.receiverAddress.errors">
+                            <mat-error *ngIf="bitCashControl.receiverAddress.errors.required">Receiver address is required!
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input type="text" matInput formControlName="bitCoinCash" placeholder="BCH" [(ngModel)]="newValue" (keyup)="convertBCH($event.target.value)">
+                                <span matSuffix class="curren-back">BCH</span>
+                                <mat-error *ngIf="bitCashControl.bitCoinCash.touched && bitCashControl.bitCoinCash.errors">
+                                    <mat-error *ngIf="bitCashControl.bitCoinCash.errors.required">Amount is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="bitCashControl.bitCoinCash.errors.pattern">Please enter valid amount!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <span matPrefix class="eur-back">Euro &nbsp;</span>
+                                <input type="text" matInput placeholder="Euro" formControlName="bchToEuro" [(ngModel)]="bchToEuro" placeholder="Euro" value="{{bchToEuro | number:'1.1-2'}}" readonly>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="wd-100" hidden="hiddenField">
+                            <input matInput formControlName="bchWithFee" [(ngModel)]="bchWithFee">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Transaction Fee: {{bchFee}}</span>
+                    </div>
+                    <div class="col-md-12 text-center mt-5 mb-3">
+                        <button type="button" mat-raised-button [ngClass]="{'grad-css': sendBCHForm.valid}" [disabled]="!sendBCHForm.valid || disableButton" (click)="sendBCH()">Send</button>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Current Balance:</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>{{bchBalance}} BCH</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>€ {{userBCHInEuro}} </span>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div *ngIf="sendRipple">
+        <div class="wrapper page-inner content-fixed">
+            <div class="conatiner w-100">
+                <div class="text-center">
+                    <img src="../../../../assets/images/currency-icons/ripple_xrp_coin-512.png" alt="ripple-image" class="otp-img">
+                </div>
+                <form [formGroup]="sendXRPForm">
+                    <mat-form-field class="wd-100 mt-10">
+                        <input type="text" matInput formControlName="receiverAddress" placeholder="Enter receiver address">
+                        <mat-error *ngIf="ripplesControl.receiverAddress.touched && ripplesControl.receiverAddress.errors">
+                            <mat-error *ngIf="ripplesControl.receiverAddress.errors.required">Receiver address is required!
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input type="text" matInput placeholder="XRP" formControlName="ripples" name="newValue" [(ngModel)]="newValue" (keyup)="convertXRP($event.target.value)">
+                                <span matSuffix class="curren-back">XRP</span>
+                                <mat-error *ngIf="ripplesControl.ripples.touched && ripplesControl.ripples.errors">
+                                    <mat-error *ngIf="ripplesControl.ripples.errors.required">Amount is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="ripplesControl.ripples.errors.pattern">Please enter valid amount!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <span matPrefix class="eur-back">Euro &nbsp;</span>
+                                <input type="text" matInput placeholder="Euro" formControlName="xrpToEuro" name="rippleToEuro" [(ngModel)]="rippleToEuro" readonly value="{{rippleToEuro | number:'1.1-2'}}">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div hidden="hiddenField">
+                        <mat-form-field class="wd-100">
+                            <input matInput formControlName="rippleWithFee" [(ngModel)]="rippleWithFee">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Transaction Fee: {{rippleFee}}</span>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-5 mb-3">
+                        <button type="button" mat-raised-button [ngClass]="{'grad-css': sendXRPForm.valid}" [disabled]="!sendXRPForm.valid || disableButton" (click)="sendXRP()">Send</button>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Current Balance:</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>{{rippleBalance}} XRP</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>€ {{userRipleInEuro}} </span>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div *ngIf="sendStellar">
+        <div class="wrapper page-inner content-fixed">
+            <div class="conatiner w-100">
+                <div class="text-center">
+                    <img src="../../../../assets/images/currency-icons/stellar_xlm-512.png" alt="stellar-image" class="otp-img">
+                </div>
+                <form [formGroup]="sendStellarForm">
+                    <mat-form-field class="wd-100 mt-10">
+                        <input type="text" matInput formControlName="receiverAddress" placeholder="Enter receiver address">
+                        <mat-error *ngIf="stellarsControl.receiverAddress.touched && stellarsControl.receiverAddress.errors">
+                            <mat-error *ngIf="stellarsControl.receiverAddress.errors.required">Receiver address is required!
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input type="text" matInput formControlName="stellar" name="newValue" [(ngModel)]="newValue" placeholder="XLM" (keyup)="convertXLM($event.target.value)">
+                                <span matSuffix class="curren-back">XLM</span>
+                                <mat-error *ngIf="stellarsControl.stellar.touched && stellarsControl.stellar.errors">
+                                    <mat-error *ngIf="stellarsControl.stellar.errors.required">Amount is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="stellarsControl.stellar.errors.pattern">Please enter valid amount!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <span matPrefix class="eur-back">Euro &nbsp;</span>
+                                <input type="text" matInput formControlName="xlmToEuro" name="stellarToEuro" [(ngModel)]="stellarToEuro" placeholder="Euro" readonly value="{{stellarToEuro | number:'1.1-2' }}">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div hidden="hiddenField">
+                        <mat-form-field class="wd-100">
+                            <input matInput formControlName="stellarWithFee" [(ngModel)]="stellarWithFee">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Transaction Fee: {{stellarFee}}</span>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-5 mb-3">
+                        <button type="button" mat-raised-button [ngClass]="{'grad-css': sendStellarForm.valid}" [disabled]="!sendStellarForm.valid || disableButton" (click)="sendStellarToOther()">Send</button>
+                    </div>
+
+                    <mat-divider></mat-divider>
+                    <div class="col-md-12 text-center mt-5">
+                        <span>Current Balance:</span>
+                    </div>
+
+                    <div class="col-md-12 text-center">
+                        <span>{{stellarBalance}} XLM</span>
+                    </div>
+
+                    <div class="col-md-12 text-center">
+                        <span>€ {{userStellarInEuro}}</span>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+</div>
+
+
+<!-- disbale right click of mouse -->
+<!-- oncontextmenu="return false" -->

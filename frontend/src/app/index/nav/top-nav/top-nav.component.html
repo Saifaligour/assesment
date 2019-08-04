@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" [ngClass]="{'shrink-toolbar': shrinkToolbar}">
+    <button mat-icon-button (click)="onToggleSidenav()" fxHide.gt-sm>
+        <mat-icon>menu</mat-icon>
+    </button>
+    <a [routerLink]="['/']" mat-button *ngIf="shrinkToolbar === true">
+        <img class="logo show-logo" src="assets/images/footer-logo.png" alt="logo">
+    </a>
+    <a [routerLink]="['/']" mat-button *ngIf="shrinkToolbar === false">
+        <img class="logo hide-logo" src="../../../../assets/images/currency-icons/mail.png" alt="logo">
+    </a>
+    <div fxFlex fxLayout fxLayoutAlign="end">
+        <div fxHide.lt-md style="display: inline-flex;">
+            <a class="nav-link js-scroll-trigger text-purple cp" pageScroll [routerLink]="['']" routerLinkActive="router-link-active">Home</a>
+
+        
+
+            <a class="nav-link js-scroll-trigger text-purple cp" pageScroll (click)="openLoginDialog()">Login</a>
+            <a class="nav-link js-scroll-trigger text-purple cp" pageScroll (click)="openRegisterDialog()">Register</a>
+        </div>
+    </div>
+</mat-toolbar>

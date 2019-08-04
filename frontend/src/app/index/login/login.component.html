@@ -1,0 +1,38 @@
+<div class="card-body">
+    <h5 class="card-title text-center">Sign In</h5>
+    <form class="form-signin" [formGroup]="loginForm">
+        <div class="example-container">
+            <mat-form-field class="wd-100 mt-10">
+                <input matInput type="text" formControlName="email" placeholder="Email address">
+                <mat-error *ngIf="controls.email.touched && controls.email.errors">
+                    <mat-error *ngIf="controls.email.errors.required">Email is required!</mat-error>
+                    <mat-error *ngIf="controls.email.errors.email">Email is not valid!</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="example-container">
+            <mat-form-field class="wd-100 mt-10">
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password" autocomplete="off">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="controls.password.touched && controls.password.errors">
+                    <mat-error *ngIf="controls.password.errors.required">Password is required!
+                    </mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class=" custom-checkbox  mt-16 mb-3">
+            <mat-checkbox [checked]="remember" [disabled]="!loginForm.valid" (click)="rememberMe()" indeterminate="true">
+                Remember me!</mat-checkbox>
+        </div>
+        <div>
+            <button mat-raised-button [ngClass]="{'grad-css': loginForm.valid}" [disabled]="!loginForm.valid" (click)="loginUser()">Sign in</button>
+        </div>
+        <div>
+            <a class="d-block  mt-3 small float-left mb-3" (click)="navigateRegister()">Need a accout?</a>
+            <a class="d-block  mt-3 small float-right mb-3" (click)="navigateForgot()">Forgot
+                Password?</a>
+        </div>
+    </form>
+</div>

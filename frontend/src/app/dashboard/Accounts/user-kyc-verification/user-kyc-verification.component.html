@@ -1,0 +1,687 @@
+<div class="wrapper page-inner content-fixed">
+    <div class="conatiner w-100">
+
+        <!-- <mat-horizontal-stepper #stepper>
+            <mat-step [stepControl]="mobileVerificationForm" [editable]="editable.step1">
+                <ng-template matStepLabel>Mobile Verification</ng-template>
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-card>
+                            <h4>Mobile Verification</h4>
+                            <h5>Send OTP To Your Primary Mobile Number</h5>
+                            <div>
+                                <form #f="ngForm" [formGroup]="mobileVerificationForm">
+                                    <mat-form-field class="wd-100">
+                                        <ngx-mat-intl-tel-input matInput [preferredCountries]="['in', 'us', 'gb']" [enablePlaceholder]="true" name="mobile" formControlName="mobile" #phone  >
+
+                                        </ngx-mat-intl-tel-input>
+                                    </mat-form-field>
+                                    <mat-error *ngIf="controls.mobile.touched && controls.mobile.errors"  >
+                                        <mat-error *ngIf="controls.mobile.errors.required">Mobile Number is required!</mat-error>
+                                        <mat-error *ngIf="controls.mobile.errors.validatePhoneNumber">Mobile number is invalid</mat-error>
+                                    </mat-error>
+                                </form>
+                            </div>
+                            <div>
+                                <button type="button" mat-raised-button [ngClass]="{'grad-css': mobileVerificationForm.valid}" [disabled]="!mobileVerificationForm.valid" (click)="sendOTP()">Send OTP</button>
+                            </div>
+                        </mat-card>
+                    </div>
+
+
+                    <div class="col-md-6" *ngIf="otp">
+                        <form [formGroup]="verifyOTPForm">
+                            <mat-card>
+                                <h4>Enter your Verification code</h4>
+                                <h5>Please Enter OTP Received On Your Mobile</h5>
+                                <div>
+                                    <mat-form-field class="wd-100">
+                                        <input matInput placeholder="Enter your OTP" formControlName="verifyOTP" [ngClass]="{ 'is-invalid': controlsOTP.verifyOTP.touched && controlsOTP.verifyOTP.errors }">
+                                        <mat-error *ngIf="controlsOTP.verifyOTP.touched && controlsOTP.verifyOTP.errors"  >
+                                            <mat-error *ngIf="controlsOTP.verifyOTP.errors.required">OTP is required!
+                                            </mat-error>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <button type="button" mat-raised-button [ngClass]="{'grad-css': verifyOTPForm.valid}" [disabled]="!verifyOTPForm.valid" (click)="verifyOTP();">Verify Mobile</button>
+                                </div>
+                            </mat-card>
+                        </form>
+                    </div>
+                </div>
+            </mat-step>
+
+
+
+
+
+
+
+
+
+            <mat-step [stepControl]="personalDetailsForm" [editable]="editable.step2">
+                <form [formGroup]="personalDetailsForm">
+                    <ng-template matStepLabel>Personal Details</ng-template>
+                    <h4>Enter your personal details</h4>
+                    <p>Adding your exact details ensures a swift and helps us to provide you with a better service and also to keep Wallebi Asia secure, fight fraud, and be KYC/AML compliant. Thank you.</p>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="First Name" name="firstname" [(ngModel)]="firstname" [ngModelOptions]="{standalone: true}" disabled>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="Last Name" name="lastname" [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}" disabled>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <mat-select placeholder="Gender" formControlName="gender" [ngClass]="{ 'is-invalid': personalControls.gender.touched && personalControls.gender.errors }">
+                                    <mat-option value="male">Male</mat-option>
+                                    <mat-option value="female">Female</mat-option>
+                                    <mat-option value="other">Other</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="personalControls.gender.touched && personalControls.gender.errors"  >
+                                    <mat-error *ngIf="personalControls.gender.errors.required">Gender is required!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput matInput formControlName="dob" max="05/2/1996" [matDatepicker]="pickerDOB" placeholder="Date of birth" [ngClass]="{ 'is-invalid': personalControls.dob.touched && personalControls.dob.errors }">
+                                <mat-datepicker-toggle matSuffix [for]="pickerDOB"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerDOB></mat-datepicker>
+                                <mat-error *ngIf="personalControls.dob.touched && personalControls.dob.errors"  >
+                                    <mat-error *ngIf="personalControls.dob.errors.required">DOB is required!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <h4>Enter Registered Address</h4>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="House Name/No" formControlName="houseNo"  >
+                                <mat-error *ngIf="personalControls.houseNo.touched && personalControls.houseNo.errors"  >
+                                    <mat-error *ngIf="personalControls.houseNo.errors.required">House Name/No is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.houseNo.errors.pattern">House Name/No is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="Street" formControlName="street" [ngClass]="{ 'is-invalid': personalControls.street.touched && personalControls.street.errors }">
+                                <mat-error *ngIf="personalControls.street.touched && personalControls.street.errors"  >
+                                    <mat-error *ngIf="personalControls.street.errors.required">Street is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.street.errors.pattern">Street is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="City" formControlName="city" [ngClass]="{ 'is-invalid': personalControls.city.touched && personalControls.city.errors }">
+                                <mat-error *ngIf="personalControls.city.touched && personalControls.city.errors"  >
+                                    <mat-error *ngIf="personalControls.city.errors.required">City is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.city.errors.pattern">City is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="District" formControlName="district" [ngClass]="{ 'is-invalid': personalControls.district.touched && personalControls.district.errors }">
+                                <mat-error *ngIf="personalControls.district.touched && personalControls.district.errors"  >
+                                    <mat-error *ngIf="personalControls.district.errors.required">District is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.district.errors.pattern">District is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="Zip Code" formControlName="zipCode" [ngClass]="{ 'is-invalid': personalControls.zipCode.touched && personalControls.zipCode.errors }">
+                                <mat-error *ngIf="personalControls.zipCode.touched && personalControls.zipCode.errors"  >
+                                    <mat-error *ngIf="personalControls.zipCode.errors.required">Zip code is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.zipCode.errors.pattern">Zip code is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 float-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="Country" formControlName="country" [ngClass]="{ 'is-invalid': personalControls.country.touched && personalControls.country.errors }">
+                                <mat-error *ngIf="personalControls.country.touched && personalControls.country.errors"  >
+                                    <mat-error *ngIf="personalControls.country.errors.required">Country is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.country.errors.pattern">Country is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row mt-10">
+                        <div class="col-md-12 text-center">
+                            <h5>Upload Document</h5>
+                            <p>Maximum file size: 5 MB Supported Formats: JPG, PNG, GIF</p>
+                            <div class="form-group select-dp">
+                                <input type="file" accept="image/*" (change)="onAddressPicked($event)">
+                            </div>
+                            <div class="form-group" *ngIf="addressPreview">
+                                <img [src]="addressPreview || ''" alt="" srcset="" height="150px" width="150px">
+                            </div>
+                            <div>
+                                <button type="button" mat-raised-button [ngClass]="{'grad-css': personalDetailsForm.valid}" [disabled]="!personalDetailsForm.valid" (click)="personalDetailsSubmit();">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+
+
+
+
+
+
+
+
+            <mat-step [stepControl]="idProofForm" [editable]="editable.step3">
+                <form [formGroup]="idProofForm">
+                    <ng-template matStepLabel>ID Detaild & Upload</ng-template>
+                    <h4>Enter your ID details</h4>
+                    <p>We accept Driving Licenses, National/State IDs and non-US Passports </p>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <mat-select placeholder="Choose issuer country" formControlName="countryid" [ngClass]="{ 'is-invalid': idControls.countryid.touched && idControls.countryid.errors }">
+                                    <mat-option *ngFor="let item of country" [value]="item.name">{{item.name}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="idControls.countryid.touched && idControls.countryid.errors"  >
+                                    <mat-error *ngIf="idControls.countryid.errors.required">Issuer Country is required!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="ID Number" formControlName="idnumber" [ngClass]="{ 'is-invalid': idControls.idnumber.touched && idControls.idnumber.errors }">
+                                <mat-error *ngIf="idControls.idnumber.touched && idControls.idnumber.errors"  >
+                                    <mat-error *ngIf="idControls.idnumber.errors.required">ID number is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="idControls.idnumber.errors.pattern">ID number is not!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <h4>Let's add your documents</h4>
+                    <p>For level 1, you need to upload two documents: </p>
+                    <p>A valid government issued ID:</p>
+                    <div class="row mt-3">
+                        <div class="col-md-6 text-center">
+
+                            <p>Maximum file size: 5 MB Supported Formats: JPG, PNG, GIF</p>
+                            <div class="form-group select-dp">
+                                <input type="file" name="" (change)="onFrontSidePicked($event)">
+                            </div>
+                            <div class="form-group" *ngIf="frontPreview">
+                                <img [src]="frontPreview || ''" alt="" srcset="" height="150px" width="150px">
+                            </div>
+                            <div>
+                                <button type="button" mat-raised-button class="  grad-css" style="color: #fff;">Choose
+                                    Front
+                                    Side
+                                    Image</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+
+                            <p>Maximum file size: 5 MB Supported Formats: JPG, PNG, GIF</p>
+                            <div class="form-group select-dp">
+                                <input type="file" name="" (change)="onBackSidePicked($event)">
+                            </div>
+                            <div class="form-group" *ngIf="backPreview">
+                                <img [src]="backPreview || ''" alt="" srcset="" height="150px" width="150px">
+                            </div>
+                            <div>
+                                <button type="button" mat-raised-button class="  grad-css" style="color: #fff;">Choose
+                                    Back
+                                    Side
+                                    Image</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-16">
+                        <div class="col-md-12 text-center">
+                            <button type="button" mat-raised-button [ngClass]="{'grad-css': idProofForm.valid}" [disabled]="!idProofForm.valid" (click)=" saveIDProof();">Next</button>
+                        </div>
+                    </div>
+
+                </form>
+            </mat-step>
+
+
+
+
+
+
+
+
+
+            <mat-step [stepControl]="selfieForm" [editable]="editable.step4">
+                <ng-template matStepLabel>Selfie Upload
+                </ng-template>
+
+                <h4>Selfie Upload</h4>
+                <p>1. International Passport (non-US) Driver's License or National ID.</p>
+                <p>2. A selfie of you holding this ID and a paper note with “Wallebi Asia”, your signature and today’s date written on it.</p>
+                <h4>Uploading Your Selfie</h4>
+                <p>Your ID, Hold Your ID, with “Wallebi Asia”, your signature and today’s date clearly written on it.
+                </p>
+                <div class="text-center ">
+                    <div class="row mt-3 selfie-clm ">
+                        <div class="col-md-6 text-center ">
+                            <img src="/assets/images/icons/selfie-image.png " class="selfie-demo ">
+
+                        </div>
+                        <div class="col-md-6 text-center ">
+
+                            <p>Maximum file size: 5 MB Supported Formats: JPG, PNG, GIF</p>
+                            <div class="form-group select-dp ">
+                                <input type="file" (change)="onSelfiePicked($event) ">
+                            </div>
+                            <div class="form-group " *ngIf="selfiePreview ">
+                                <img [src]="selfiePreview || '' " alt=" " srcset=" " height="150px " width="150px ">
+                            </div>
+                            <div>
+                                <button type="button " mat-raised-button class=" grad-css " style="color: #fff; ">Choose
+                                    Selfie
+                                    Image</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-16 ">
+                        <div class="col-md-12 text-center ">
+                            <button type="button " mat-raised-button [ngClass]="{'grad-css': selfieForm.valid}" [disabled]="!selfieForm.valid" (click)="saveSelfie();">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+            </mat-step>
+
+
+
+            <mat-step [editable]="editable.step5">
+                <ng-template matStepLabel>Done
+                </ng-template>
+                <div class="text-center box-shadow p-5 cstm-radius">
+                    <h4>Wrapping things up</h4>
+                <p>Thank you for submitting your documents, we are reviewing your application. Once approved, you will be notified by email and can enjoy higher daily transactions limits and gain access to additional trading facilities.</p>
+            
+                </div>
+                </mat-step>
+        </mat-horizontal-stepper> -->
+
+
+
+
+        <mat-vertical-stepper #stepper>
+            <mat-step [stepControl]="mobileVerificationForm" [editable]="editable.step1">
+                <ng-template matStepLabel>Mobile Verification</ng-template>
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-card>
+                            <h4>Mobile Verification</h4>
+                            <h5>Send OTP To Your Primary Mobile Number</h5>
+                            <div>
+                                <form #f="ngForm" [formGroup]="mobileVerificationForm">
+
+
+
+
+
+
+                                    <mat-form-field class="wd-100">
+                                        <ngx-mat-intl-tel-input matInput [preferredCountries]="['in', 'us', 'gb']" [enablePlaceholder]="true" name="mobile" formControlName="mobile" #phone>
+
+                                        </ngx-mat-intl-tel-input>
+                                    </mat-form-field>
+                                    <mat-error *ngIf="controls.mobile.touched && controls.mobile.errors">
+                                        <mat-error *ngIf="controls.mobile.errors.required">Mobile Number is required!</mat-error>
+                                        <mat-error *ngIf="controls.mobile.errors.validatePhoneNumber">Mobile number is invalid</mat-error>
+                                    </mat-error>
+                                </form>
+                            </div>
+                            <div>
+                                <button type="button" mat-raised-button [ngClass]="{'grad-css': mobileVerificationForm.valid}" [disabled]="!mobileVerificationForm.valid" (click)="sendOTP()">Send OTP</button>
+                            </div>
+                        </mat-card>
+                    </div>
+
+
+                    <div class="col-md-6" *ngIf="otp">
+                        <form [formGroup]="verifyOTPForm">
+                            <mat-card>
+                                <h4>Enter your Verification code</h4>
+                                <h5>Please Enter OTP Received On Your Mobile</h5>
+                                <div>
+                                    <mat-form-field class="wd-100">
+                                        <input matInput placeholder="Enter your OTP" formControlName="verifyOTP">
+                                        <mat-error *ngIf="controlsOTP.verifyOTP.touched && controlsOTP.verifyOTP.errors">
+                                            <mat-error *ngIf="controlsOTP.verifyOTP.errors.required">OTP is required!
+                                            </mat-error>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <button type="button" mat-raised-button [ngClass]="{'grad-css': verifyOTPForm.valid}" [disabled]="!verifyOTPForm.valid" (click)="verifyOTP();">Verify Mobile</button>
+                                </div>
+                            </mat-card>
+                        </form>
+                    </div>
+                </div>
+            </mat-step>
+
+
+
+
+
+
+
+
+
+            <mat-step [stepControl]="personalDetailsForm" [editable]="editable.step2">
+                <form [formGroup]="personalDetailsForm">
+                    <ng-template matStepLabel>Personal Details</ng-template>
+                    <h4>Enter your personal details</h4>
+                    <p>Adding your exact details ensures a swift and helps us to provide you with a better service and also to keep Wallebi Asia secure, fight fraud, and be KYC/AML compliant. Thank you.</p>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="First Name" name="firstname" [(ngModel)]="firstname" [ngModelOptions]="{standalone: true}" disabled>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="Last Name" name="lastname" [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}" disabled>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <mat-select placeholder="Gender" formControlName="gender">
+                                    <mat-option value="male">Male</mat-option>
+                                    <mat-option value="female">Female</mat-option>
+                                    <mat-option value="other">Other</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="personalControls.gender.touched && personalControls.gender.errors">
+                                    <mat-error *ngIf="personalControls.gender.errors.required">Gender is required!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput matInput formControlName="dob" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerDOB" placeholder="Date of birth">
+                                <mat-datepicker-toggle matSuffix [for]="pickerDOB"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi #pickerDOB></mat-datepicker>
+                                <mat-error *ngIf="personalControls.dob.touched && personalControls.dob.errors">
+                                    <mat-error *ngIf="personalControls.dob.errors.required">DOB is required!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <h4>Enter Registered Address</h4>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="House Name/No" formControlName="houseNo">
+                                <mat-error *ngIf="personalControls.houseNo.touched && personalControls.houseNo.errors">
+                                    <mat-error *ngIf="personalControls.houseNo.errors.required">House Name/No is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.houseNo.errors.pattern">House Name/No is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="Street" formControlName="street">
+                                <mat-error *ngIf="personalControls.street.touched && personalControls.street.errors">
+                                    <mat-error *ngIf="personalControls.street.errors.required">Street is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.street.errors.pattern">Street is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="City" formControlName="city">
+                                <mat-error *ngIf="personalControls.city.touched && personalControls.city.errors">
+                                    <mat-error *ngIf="personalControls.city.errors.required">City is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.city.errors.pattern">City is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="District" formControlName="district">
+                                <mat-error *ngIf="personalControls.district.touched && personalControls.district.errors">
+                                    <mat-error *ngIf="personalControls.district.errors.required">District is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.district.errors.pattern">District is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="Zip Code" formControlName="zipCode">
+                                <mat-error *ngIf="personalControls.zipCode.touched && personalControls.zipCode.errors">
+                                    <mat-error *ngIf="personalControls.zipCode.errors.required">Zip code is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.zipCode.errors.pattern">Zip code is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 float-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="Country" formControlName="country">
+                                <mat-error *ngIf="personalControls.country.touched && personalControls.country.errors">
+                                    <mat-error *ngIf="personalControls.country.errors.required">Country is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="personalControls.country.errors.pattern">Country is not valid!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row mt-10">
+                        <div class="col-md-12 text-center">
+                            <h5>Upload Document</h5>
+                            <p>Maximum file size: 5 MB Supported Formats: JPG, PNG, GIF</p>
+                            <div class="form-group select-dp">
+                                <input type="file" accept="image/*" (change)="onAddressPicked($event)">
+                            </div>
+                            <div class="form-group" *ngIf="addressPreview">
+                                <img [src]="addressPreview || ''" alt="" srcset="" height="150px" width="150px">
+                            </div>
+                            <div>
+                                <button type="button" mat-raised-button [ngClass]="{'grad-css': personalDetailsForm.valid}" [disabled]="!personalDetailsForm.valid" (click)="personalDetailsSubmit();">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+
+
+
+
+
+
+
+
+            <mat-step [stepControl]="idProofForm" [editable]="editable.step3">
+                <form [formGroup]="idProofForm">
+                    <ng-template matStepLabel>ID Detaild & Upload</ng-template>
+                    <h4>Enter your ID details</h4>
+                    <p>We accept Driving Licenses, National/State IDs and non-US Passports </p>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <mat-select placeholder="Choose issuer country" formControlName="countryid">
+                                    <mat-option *ngFor="let item of country" [value]="item.name">{{item.name}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="idControls.countryid.touched && idControls.countryid.errors">
+                                    <mat-error *ngIf="idControls.countryid.errors.required">Issuer Country is required!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput placeholder="ID Number" formControlName="idnumber">
+                                <mat-error *ngIf="idControls.idnumber.touched && idControls.idnumber.errors">
+                                    <mat-error *ngIf="idControls.idnumber.errors.required">ID number is required!
+                                    </mat-error>
+                                    <mat-error *ngIf="idControls.idnumber.errors.pattern">ID number is not!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <h4>Let's add your documents</h4>
+                    <p>For level 1, you need to upload two documents: </p>
+                    <p>A valid government issued ID:</p>
+                    <div class="row mt-3">
+                        <div class="col-md-6 text-center">
+
+                            <p>Maximum file size: 5 MB Supported Formats: JPG, PNG, GIF</p>
+                            <div class="form-group select-dp">
+                                <input type="file" name="" (change)="onFrontSidePicked($event)">
+                            </div>
+                            <div class="form-group" *ngIf="frontPreview">
+                                <img [src]="frontPreview || ''" alt="" srcset="" height="150px" width="150px">
+                            </div>
+                            <div>
+                                <button type="button" mat-raised-button class="  grad-css" style="color: #fff;">Choose
+                                    Front
+                                    Side
+                                    Image</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+
+                            <p>Maximum file size: 5 MB Supported Formats: JPG, PNG, GIF</p>
+                            <div class="form-group select-dp">
+                                <input type="file" name="" (change)="onBackSidePicked($event)">
+                            </div>
+                            <div class="form-group" *ngIf="backPreview">
+                                <img [src]="backPreview || ''" alt="" srcset="" height="150px" width="150px">
+                            </div>
+                            <div>
+                                <button type="button" mat-raised-button class="  grad-css" style="color: #fff;">Choose
+                                    Back
+                                    Side
+                                    Image</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-16">
+                        <div class="col-md-12 text-center">
+                            <button type="button" mat-raised-button [ngClass]="{'grad-css': idProofForm.valid}" [disabled]="!idProofForm.valid" (click)=" saveIDProof();">Next</button>
+                        </div>
+                    </div>
+
+                </form>
+            </mat-step>
+
+
+
+
+
+
+
+
+
+            <mat-step [stepControl]="selfieForm" [editable]="editable.step4">
+                <ng-template matStepLabel>Selfie Upload
+                </ng-template>
+
+                <h4>Selfie Upload</h4>
+                <p>1. International Passport (non-US) Driver's License or National ID.</p>
+                <p>2. A selfie of you holding this ID and a paper note with “Wallebi Asia”, your signature and today’s date written on it.</p>
+                <h4>Uploading Your Selfie</h4>
+                <p>Your ID, Hold Your ID, with “Wallebi Asia”, your signature and today’s date clearly written on it.
+                </p>
+                <div class="text-center ">
+                    <div class="row mt-3 selfie-clm ">
+                        <div class="col-md-6 text-center ">
+                            <img src="/assets/images/icons/selfie-image.png " class="selfie-demo ">
+
+                        </div>
+                        <div class="col-md-6 text-center ">
+
+                            <p>Maximum file size: 5 MB Supported Formats: JPG, PNG, GIF</p>
+                            <div class="form-group select-dp ">
+                                <input type="file" (change)="onSelfiePicked($event) ">
+                            </div>
+                            <div class="form-group " *ngIf="selfiePreview ">
+                                <img [src]="selfiePreview || '' " alt=" " srcset=" " height="150px " width="150px ">
+                            </div>
+                            <div>
+                                <button type="button " mat-raised-button class=" grad-css " style="color: #fff; ">Choose
+                                    Selfie
+                                    Image</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-16 ">
+                        <div class="col-md-12 text-center ">
+                            <button type="button " mat-raised-button [ngClass]="{'grad-css': selfieForm.valid}" [disabled]="!selfieForm.valid" (click)="saveSelfie();">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+            </mat-step>
+
+
+
+            <mat-step [editable]="editable.step5">
+                <ng-template matStepLabel>Done
+                </ng-template>
+                <div class="text-center box-shadow p-5 cstm-radius">
+                    <h4>Wrapping things up</h4>
+                    <p>Thank you for submitting your documents, we are reviewing your application. Once approved, you will be notified by email and can enjoy higher daily transactions limits and gain access to additional trading facilities.</p>
+
+                </div>
+            </mat-step>
+        </mat-vertical-stepper>
+    </div>
+</div>

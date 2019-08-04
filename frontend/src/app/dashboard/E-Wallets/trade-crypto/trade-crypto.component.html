@@ -1,0 +1,400 @@
+<div>
+  <div class="recive-opt">
+    <button mat-icon-button class="close-btn" (click)="closeDilaog()">
+      <mat-icon class="close-icon-width">highlight_off</mat-icon>
+    </button>
+  </div>
+</div>
+
+
+
+<div *ngIf="tradeBTC">
+  <div class="wrapper page-inner content-fixed">
+      <div class="conatiner w-100">
+          <div class="text-center">
+              <img src="../../../../assets/images/currency-icons/cryptocurrency-icon.png" alt="stellar-image" class="otp-img">
+          </div>
+          <form >
+              <div class="row">
+                  <div class="col-md-6">
+                      <mat-form-field class="wd-100 mt-10">
+                          <input type="text" matInput placeholder="BTC">
+                          <span matSuffix class="curren-back">BTC</span>
+                          <!-- <mat-error *ngIf="bitCoinControl.bitcoin.touched && bitCoinControl.bitcoin.errors">
+                              <mat-error *ngIf="bitCoinControl.bitcoin.errors.required">Amount is required!
+                              </mat-error>
+                              <mat-error *ngIf="bitCoinControl.bitcoin.errors.pattern">Please enter valid amount!
+                              </mat-error>
+                          </mat-error> -->
+                      </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                      <mat-form-field class="wd-100 mt-10">
+                          <span matPrefix class="eur-back">Euro &nbsp;</span>
+                          <input type="text" matInput placeholder="Euro" readonly>
+                      </mat-form-field>
+                  </div>
+              </div>
+
+              <div class="col-md-12 text-center mt-5 mb-3">
+                  <button type="button" mat-raised-button>Send</button>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="col-md-12 text-center mt-5">
+                  <span>Current Balance:</span>
+              </div>
+              <div class="col-md-12 text-center">
+                  <span>0000 BTC</span>
+              </div>
+              <div class="col-md-12 text-center">
+                  <span>€ 0000</span>
+              </div>
+          </form>
+      </div>
+
+  </div>
+</div>
+
+
+
+<div *ngIf="tradeETH">
+    <div class="wrapper page-inner content-fixed">
+        <div class="conatiner w-100">
+            <div class="text-center">
+                <img src="../../../../assets/images/currency-icons/Ethereum-ETH-icon.png" alt="ethereum-image" class="otp-img">
+            </div>
+            <form >
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <input type="text" matInput placeholder="ETH">
+                            <span matSuffix class="curren-back">ETH</span>
+                            <!-- <mat-error *ngIf="bitCoinControl.bitcoin.touched && bitCoinControl.bitcoin.errors">
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.required">Amount is required!
+                                </mat-error>
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.pattern">Please enter valid amount!
+                                </mat-error>
+                            </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <span matPrefix class="eur-back">Euro &nbsp;</span>
+                            <input type="text" matInput placeholder="Euro" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+  
+                <div class="col-md-12 text-center mt-5 mb-3">
+                    <button type="button" mat-raised-button>Send</button>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="col-md-12 text-center mt-5">
+                    <span>Current Balance:</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>0000 ETH</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>€ 0000</span>
+                </div>
+            </form>
+        </div>
+  
+    </div>
+  </div>
+
+
+
+  <div *ngIf="tradeTether">
+    <div class="wrapper page-inner content-fixed">
+        <div class="conatiner w-100">
+            <div class="text-center">
+                <img src="../../../../assets/images/currency-icons/Tether-USDT-icon.png" alt="Tether-image" class="otp-img">
+            </div>
+            <form >
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <input type="text" matInput placeholder="USDT">
+                            <span matSuffix class="curren-back">USDT</span>
+                            <!-- <mat-error *ngIf="bitCoinControl.bitcoin.touched && bitCoinControl.bitcoin.errors">
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.required">Amount is required!
+                                </mat-error>
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.pattern">Please enter valid amount!
+                                </mat-error>
+                            </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <span matPrefix class="eur-back">Euro &nbsp;</span>
+                            <input type="text" matInput placeholder="Euro" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+  
+                <div class="col-md-12 text-center mt-5 mb-3">
+                    <button type="button" mat-raised-button>Send</button>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="col-md-12 text-center mt-5">
+                    <span>Current Balance:</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>0000 USDT</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>€ 0000</span>
+                </div>
+            </form>
+        </div>
+  
+    </div>
+  </div>  
+
+
+
+  <div *ngIf="tradeLTC">
+    <div class="wrapper page-inner content-fixed">
+        <div class="conatiner w-100">
+            <div class="text-center">
+                <img src="../../../../assets/images/currency-icons/Litecoin-LTC-icon.png" alt="Tether-image" class="otp-img">
+            </div>
+            <form >
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <input type="text" matInput placeholder="LTC">
+                            <span matSuffix class="curren-back">LTC</span>
+                            <!-- <mat-error *ngIf="bitCoinControl.bitcoin.touched && bitCoinControl.bitcoin.errors">
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.required">Amount is required!
+                                </mat-error>
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.pattern">Please enter valid amount!
+                                </mat-error>
+                            </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <span matPrefix class="eur-back">Euro &nbsp;</span>
+                            <input type="text" matInput placeholder="Euro" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+  
+                <div class="col-md-12 text-center mt-5 mb-3">
+                    <button type="button" mat-raised-button>Send</button>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="col-md-12 text-center mt-5">
+                    <span>Current Balance:</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>0000 LTC</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>€ 0000</span>
+                </div>
+            </form>
+        </div>
+  
+    </div>
+  </div>    
+
+
+
+  <div *ngIf="tradeMonero">
+    <div class="wrapper page-inner content-fixed">
+        <div class="conatiner w-100">
+            <div class="text-center">
+                <img src="../../../../assets/images/currency-icons/monero-symbol-on-white-1280.png" alt="Tether-image" class="otp-img">
+            </div>
+            <form >
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <input type="text" matInput placeholder="XMR">
+                            <span matSuffix class="curren-back">XMR</span>
+                            <!-- <mat-error *ngIf="bitCoinControl.bitcoin.touched && bitCoinControl.bitcoin.errors">
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.required">Amount is required!
+                                </mat-error>
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.pattern">Please enter valid amount!
+                                </mat-error>
+                            </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <span matPrefix class="eur-back">Euro &nbsp;</span>
+                            <input type="text" matInput placeholder="Euro" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+  
+                <div class="col-md-12 text-center mt-5 mb-3">
+                    <button type="button" mat-raised-button>Send</button>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="col-md-12 text-center mt-5">
+                    <span>Current Balance:</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>0000 XMR</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>€ 0000</span>
+                </div>
+            </form>
+        </div>
+  
+    </div>
+  </div>
+
+
+
+  <div *ngIf="tradeBCH">
+    <div class="wrapper page-inner content-fixed">
+        <div class="conatiner w-100">
+            <div class="text-center">
+                <img src="../../../../assets/images/currency-icons/Bitcoin-Cash-BCH-icon.png" alt="Tether-image" class="otp-img">
+            </div>
+            <form >
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <input type="text" matInput placeholder="BCH">
+                            <span matSuffix class="curren-back">BCH</span>
+                            <!-- <mat-error *ngIf="bitCoinControl.bitcoin.touched && bitCoinControl.bitcoin.errors">
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.required">Amount is required!
+                                </mat-error>
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.pattern">Please enter valid amount!
+                                </mat-error>
+                            </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <span matPrefix class="eur-back">Euro &nbsp;</span>
+                            <input type="text" matInput placeholder="Euro" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+  
+                <div class="col-md-12 text-center mt-5 mb-3">
+                    <button type="button" mat-raised-button>Send</button>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="col-md-12 text-center mt-5">
+                    <span>Current Balance:</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>0000 BCH</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>€ 0000</span>
+                </div>
+            </form>
+        </div>
+  
+    </div>
+  </div>  
+  
+  
+
+  <div *ngIf="tradeRipple">
+    <div class="wrapper page-inner content-fixed">
+        <div class="conatiner w-100">
+            <div class="text-center">
+                <img src="../../../../assets/images/currency-icons/ripple_xrp_coin-512.png" alt="Tether-image" class="otp-img">
+            </div>
+            <form >
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <input type="text" matInput placeholder="XRP">
+                            <span matSuffix class="curren-back">XRP</span>
+                            <!-- <mat-error *ngIf="bitCoinControl.bitcoin.touched && bitCoinControl.bitcoin.errors">
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.required">Amount is required!
+                                </mat-error>
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.pattern">Please enter valid amount!
+                                </mat-error>
+                            </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <span matPrefix class="eur-back">Euro &nbsp;</span>
+                            <input type="text" matInput placeholder="Euro" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+  
+                <div class="col-md-12 text-center mt-5 mb-3">
+                    <button type="button" mat-raised-button>Send</button>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="col-md-12 text-center mt-5">
+                    <span>Current Balance:</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>0000 XRP</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>€ 0000</span>
+                </div>
+            </form>
+        </div>
+  
+    </div>
+  </div>  
+
+
+
+
+  <div *ngIf="tradeStellar">
+    <div class="wrapper page-inner content-fixed">
+        <div class="conatiner w-100">
+            <div class="text-center">
+                <img src="../../../../assets/images/currency-icons/stellar_xlm-512.png" alt="Tether-image" class="otp-img">
+            </div>
+            <form >
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <input type="text" matInput placeholder="XLM">
+                            <span matSuffix class="curren-back">XLM</span>
+                            <!-- <mat-error *ngIf="bitCoinControl.bitcoin.touched && bitCoinControl.bitcoin.errors">
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.required">Amount is required!
+                                </mat-error>
+                                <mat-error *ngIf="bitCoinControl.bitcoin.errors.pattern">Please enter valid amount!
+                                </mat-error>
+                            </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <span matPrefix class="eur-back">Euro &nbsp;</span>
+                            <input type="text" matInput placeholder="Euro" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+  
+                <div class="col-md-12 text-center mt-5 mb-3">
+                    <button type="button" mat-raised-button>Send</button>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="col-md-12 text-center mt-5">
+                    <span>Current Balance:</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>0000 XLM</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>€ 0000</span>
+                </div>
+            </form>
+        </div>
+  
+    </div>
+  </div>   

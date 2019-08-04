@@ -1,0 +1,85 @@
+<div class="card-body">
+    <h5 class="card-title text-center">Register</h5>
+    <form class="form-signin" [formGroup]="newUserFrom">
+
+        <div class="example-container">
+            <mat-form-field class="wd-100 mt-10 res-mr">
+                <input matInput type="text" formControlName="firstname" placeholder="Firstname">
+                <mat-error *ngIf="controls.firstname.touched && controls.firstname.errors">
+                    <mat-error *ngIf="controls.firstname.errors.required">First Name is required!
+                    </mat-error>
+                    <mat-error *ngIf="controls.firstname.errors.pattern">First name is not valid!
+                    </mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="example-container">
+            <mat-form-field class="wd-100 mt-10 res-mr">
+                <input matInput formControlName="lastname" placeholder="Lastname">
+                <mat-error *ngIf="controls.lastname.touched && controls.lastname.errors">
+                    <mat-error *ngIf="controls.lastname.errors.required">Last Name is required!
+                    </mat-error>
+                    <mat-error *ngIf="controls.lastname.errors.pattern">Last Name is not valid!
+                    </mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="example-container">
+            <mat-form-field class="wd-100 mt-10 res-mr">
+                <input matInput type="text" formControlName="email" placeholder="Email address">
+                <mat-error *ngIf="controls.email.touched && controls.email.errors">
+                    <mat-error *ngIf="controls.email.errors.required">Email is required!</mat-error>
+                    <mat-error *ngIf="controls.email.errors.email">Email is not valid!</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="example-container">
+            <mat-form-field class="wd-100 mt-10 res-mr">
+                <mat-select placeholder="Choose your language" id="sel1" formControlName="userLanguage">
+                    <mat-option value="English">English</mat-option>
+                    <mat-option value="Dutch">Dutch</mat-option>
+                    <mat-option value="Spanish">Spanish</mat-option>
+                    <mat-option value="French">French</mat-option>
+                </mat-select>
+                <mat-error *ngIf="controls.userLanguage.touched && controls.userLanguage.errors">
+                    <mat-error *ngIf="controls.userLanguage.touched && controls.userLanguage.errors"></mat-error>
+                    <mat-error *ngIf="controls.userLanguage.errors.required">Language is required!
+                    </mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+       
+        <div class="example-container">
+            <mat-form-field class="wd-100 mt-10 res-mr">
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" (change)="StorePassword($event)" autocomplete='password' placeholder="Password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="controls.password.touched && controls.password.errors">
+                    <mat-error *ngIf="controls.password.errors.required">Password is required
+                    </mat-error>
+                    <mat-error *ngIf="controls.password.errors.pattern">Password is required</mat-error>
+                    <mat-error *ngIf="controls.password.touched && controls.password.errors.pattern" class="passwordhint ">example password: System@456978, systeM!456978</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="example-container">
+            <mat-form-field class="wd-100 mt-10 res-mr">
+                <input matInput type="password" id="inputConfirmaPassword" formControlName="confirmPassword" [pattern]="iPassword" (invalid)="GetInvalidMessage($event)" autocomplete='password' placeholder="Confirm Password">
+                <mat-error *ngIf="controls.confirmPassword.touched && controls.confirmPassword.errors">
+                    <mat-error *ngIf="controls.confirmPassword.errors.required">Confirm password is required
+                    </mat-error>
+                    <mat-error *ngIf="controls.confirmPassword.errors.pattern">Password doesn't match!
+                    </mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary" [ngClass]="{'grad-css': newUserFrom.valid}" type="submit" [disabled]="!newUserFrom.valid" (click)="register()">Register</button>
+
+        <div class="text-center">
+            <a class=" mt-2 small" (click)="navigateLogin()">already have a
+                    account?</a>
+        </div>
+
+    </form>
+</div>
